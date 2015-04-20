@@ -67,7 +67,8 @@ public class FetchRecipeList extends AsyncTask<Void,Void,Boolean> {
             myRecycleViewAdapter.SetOnItemClickListener(new MyRecycleViewAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    System.out.println("\n\nItem CLicked\n");                    String id=recipeList.getRecipes().get(position).getRecipe_id();
+                    System.out.println("\n\nItem CLicked\n");
+                    String id=recipeList.getRecipes().get(position).getRecipe_id();
 
                     activity.getFragmentManager().beginTransaction()
                             .replace(R.id.container,Fragment_DetailView.newInstance(id))

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-/**
+/*
  * Created by Karthik on 4/19/2015.
  */
 public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.RecipeViewHolder> {
@@ -35,16 +35,28 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
             vImage=(ImageView) itemView.findViewById(R.id.recipelistimage);
             vId=(TextView)itemView.findViewById(R.id.recipeid);
             vTitle=(TextView)itemView.findViewById(R.id.title);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mItemClickListener != null) {
+                        mItemClickListener.onItemClick(v, getPosition());
+                    }
+                }
+            });
         }
 
         public void bindRecipeData(RecipeListItem recipeListitem)
         {
-            vTitle.setText((String)recipeListitem.getTitle());
-            vId.setText((String)recipeListitem.getRecipe_id());
+            vTitle.setText(recipeListitem.getTitle());
+            vId.setText(recipeListitem.getRecipe_id());
             Picasso.with(this.vImage.getContext())
                     .load(recipeListitem.getImage_url())
                     .into(vImage);
         }
+
+
+
     }
 
     @Override
