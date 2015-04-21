@@ -15,8 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import java.util.HashMap;
 
-public class MainActivity extends ActionBarActivity {
+
+public class MainActivity extends ActionBarActivity implements PopularRecipeFragment.OnRecipeItemSelectedListener{
 
     private RelativeLayout mDrawer;
     private DrawerLayout mDrawerLayout;
@@ -31,6 +33,9 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+
+        RecipeDatabase rdb=new RecipeDatabase(getApplicationContext());
+
         mDrawer = (RelativeLayout) findViewById(R.id.drawer);
         mDrawerList = (RecyclerView) findViewById(R.id.drawer_list);
         mDrawerList.setLayoutManager(new LinearLayoutManager(this));
@@ -70,8 +75,16 @@ public class MainActivity extends ActionBarActivity {
     private void selectItem(int position) {
         // update the main content by replacing fragments
         switch (position) {
+            case 0: getFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
+                break;
+            case 1: getFragmentManager().beginTransaction().replace(R.id.container, new PopularRecipeFragment()).addToBackStack(null).commit();
+                break;
 
 
+
+
+            default:getFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
+                break;
         }
     }
 
@@ -98,8 +111,22 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onItemSelected(int position, HashMap<String, ?> movie) {
 
+    }
 
+    @Override
+    public void onBackPressed()
+    {
+        // Catch back action and pops from backstack
+        // (if you called previously to addToBackStack() in your transaction)
+        if (getFragmentManager().getBackStackEntryCount() > 0){
+            getFragmentManager().popBackStack();
+        }
+        // Default action on back pressed
+        else super.onBackPressed();
+    }
 
 
     /**

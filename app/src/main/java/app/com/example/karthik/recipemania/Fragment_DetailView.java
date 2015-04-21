@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ public class Fragment_DetailView extends Fragment {
     public TextView source_url;
     public TextView ingredients;
     public TextView publisher;
+    public Button favouritesButton;
 
     public Fragment_DetailView(){
 
@@ -48,12 +50,19 @@ public class Fragment_DetailView extends Fragment {
         source_url=(TextView) v.findViewById(R.id.recipesourceurl);
         publisher=(TextView) v.findViewById(R.id.recipepublisher);
         ingredients=(TextView) v.findViewById(R.id.ingredients);
+        favouritesButton=(Button)v.findViewById(R.id.favouritesButton);
 
         Bundle bundle = this.getArguments();
         String user = bundle.getString(RECIPE_ID);
 
         System.out.println(user);
 
+        //query database to change button text
+        RecipeDatabase rdb=RecipeDatabase.getInstance(getActivity().getApplicationContext());
+        RecipeDbItem1 recipeDbItem1=rdb.getFavourite(user);
+        if(recipeDbItem1.getID()!="")
+            favouritesButton.setText("REMOVE FROM FAVOURITES");
+        //querying web api
         FetchDetailRecipe fetchDetailRecipe=new FetchDetailRecipe(user);
         fetchDetailRecipe.execute();
         return v;
@@ -114,6 +123,29 @@ public class Fragment_DetailView extends Fragment {
                 {
                     ingredients.append("\n"+recipeElement.getRecipe().getIngredients().get(i));
                 }
+
+                favouritesButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        RecipeDatabase rdb=RecipeDatabase.getInstance(getActivity().getApplicationContext());
+                        Button b = (Button)v;
+                        String buttonText = b.getText().toString();
+                        RecipeDbItem1 recipeDbItem1 = new RecipeDbItem1();
+                        recipeDbItem1.setID(recipeElement.getRecipe().getRecipe_id());
+                        recipeDbItem1.setTitle(recipeElement.getRecipe().getTitle());
+                        if(buttonText=="ADD TO FAVOURITES") {
+                            rdb.addFavourite(recipeDbItem1);
+                            System.out.println("\n Button on click . inserting here");
+                            favouritesButton.setText("REMOVE FROM FAVOURITES");
+                        }
+                        else if(buttonText=="REMOVE FROM FAVOURITES"){
+                            rdb.deleteFavourite(recipeDbItem1);
+                            System.out.println("\n Button on click . deleting from database");
+                            favouritesButton.setText("ADD TO FAVOURITES");
+                        }
+                    }
+                });
+
 
 
 

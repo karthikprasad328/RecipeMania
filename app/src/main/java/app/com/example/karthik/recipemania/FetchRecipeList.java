@@ -74,6 +74,7 @@ public class FetchRecipeList extends AsyncTask<Void,Void,Boolean> {
                             .replace(R.id.container,Fragment_DetailView.newInstance(id))
                             .addToBackStack(null)
                             .commit();
+
                 }
             });
         }

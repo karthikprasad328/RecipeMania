@@ -26,14 +26,14 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
     //create a viewholder
     public class RecipeViewHolder extends RecyclerView.ViewHolder{
         private TextView vTitle;
-        private TextView vId;
+
         private ImageView vImage;
 
         public RecipeViewHolder(final View itemView){
             super(itemView);
 
             vImage=(ImageView) itemView.findViewById(R.id.recipelistimage);
-            vId=(TextView)itemView.findViewById(R.id.recipeid);
+
             vTitle=(TextView)itemView.findViewById(R.id.title);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +49,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
         public void bindRecipeData(RecipeListItem recipeListitem)
         {
             vTitle.setText(recipeListitem.getTitle());
-            vId.setText(recipeListitem.getRecipe_id());
+
             Picasso.with(this.vImage.getContext())
                     .load(recipeListitem.getImage_url())
                     .into(vImage);
