@@ -86,14 +86,18 @@ public class RecipeDatabase extends SQLiteOpenHelper {
     public RecipeDbItem1 getFavourite(String id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
+        RecipeDbItem1 recipeDbItem1=new RecipeDbItem1("","");
         Cursor cursor = db.query(TABLE_FAVOURITES, new String[] { KEY_ID,
                         KEY_TITLE }, KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
+                new String[] { id }, null, null, null, null);
+        if (cursor != null) {
+            if(cursor.moveToFirst()) {
+                recipeDbItem1 = new RecipeDbItem1(cursor.getString(0), cursor.getString(1));
+                System.out.println("\n\nGetFavourite function clicked id: " + cursor.getString(0));
+            }
+            else{System.out.println("\n\nGetFavourite cursor not null");}
+        }
 
-        RecipeDbItem1 recipeDbItem1=new RecipeDbItem1(cursor.getString(0),
-                cursor.getString(1));
         return recipeDbItem1;
     }
 

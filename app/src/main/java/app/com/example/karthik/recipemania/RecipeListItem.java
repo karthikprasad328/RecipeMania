@@ -13,6 +13,19 @@ public class RecipeListItem {
     private String social_rank;
     private String publisher_url;
 
+    public RecipeListItem(RecipeElement recipeElement)
+    {
+        RecipeItem recipeItem=recipeElement.getRecipe();
+        publisher=recipeItem.getPublisher();
+        f2f_url=recipeItem.getF2f_url();
+        title=recipeItem.getTitle();
+        source_url=recipeItem.getSource_url();
+        recipe_id=recipeItem.getRecipe_id();
+        image_url=recipeItem.getImage_url();
+        social_rank=recipeItem.getSocial_rank();
+        publisher_url=recipeItem.getPublisher_url();
+    }
+
     public void setPublisher(String publisher){this.publisher=publisher;}
 
     public void setF2f_url(String f2f_url){this.f2f_url=f2f_url;}

@@ -133,12 +133,12 @@ public class Fragment_DetailView extends Fragment {
                         RecipeDbItem1 recipeDbItem1 = new RecipeDbItem1();
                         recipeDbItem1.setID(recipeElement.getRecipe().getRecipe_id());
                         recipeDbItem1.setTitle(recipeElement.getRecipe().getTitle());
-                        if(buttonText=="ADD TO FAVOURITES") {
+                        if(buttonText.compareTo("ADD TO FAVOURITES")==0) {
                             rdb.addFavourite(recipeDbItem1);
                             System.out.println("\n Button on click . inserting here");
                             favouritesButton.setText("REMOVE FROM FAVOURITES");
                         }
-                        else if(buttonText=="REMOVE FROM FAVOURITES"){
+                        else if(buttonText.compareTo("REMOVE FROM FAVOURITES")==0){
                             rdb.deleteFavourite(recipeDbItem1);
                             System.out.println("\n Button on click . deleting from database");
                             favouritesButton.setText("ADD TO FAVOURITES");
