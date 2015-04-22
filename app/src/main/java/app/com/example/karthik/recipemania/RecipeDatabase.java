@@ -139,6 +139,13 @@ public class RecipeDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteGrocery(String title)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_GROCERIES,KEY_TITLE+"=?",new String[]{String.valueOf(title)});
+        db.close();
+
+    }
     //add a grocery item
     public void addGrocery(String title)
     {

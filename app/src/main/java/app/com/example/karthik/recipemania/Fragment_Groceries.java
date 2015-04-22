@@ -31,7 +31,7 @@ public class Fragment_Groceries extends Fragment{
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLayoutManager);
-        RecipeDatabase rdb=RecipeDatabase.getInstance(getActivity().getApplicationContext());
+        final RecipeDatabase rdb=RecipeDatabase.getInstance(getActivity().getApplicationContext());
         List<String> groceries=rdb.getGroceries();
         final GroceryItemsList groceryItemsList=new GroceryItemsList(groceries);
         final MyGroceryListAdapter myGroceryListAdapter=new MyGroceryListAdapter(groceryItemsList.getGroceryList());
@@ -47,8 +47,10 @@ public class Fragment_Groceries extends Fragment{
                     HashMap entry=(HashMap)groceryItemsList.getItem(i);
                     Boolean b=(Boolean)entry.get("selection");
                     if(b==true){
+                        rdb.deleteGrocery((String)groceryItemsList.getItem(i).get("title"));
                         groceryItemsList.groceryList.remove(i);
                         myGroceryListAdapter.notifyItemRemoved(i);
+
                     }
                 }
             }

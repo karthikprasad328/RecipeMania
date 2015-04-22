@@ -15,10 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import java.util.HashMap;
 
-
-public class MainActivity extends ActionBarActivity implements PopularRecipeFragment.OnRecipeItemSelectedListener{
+public class MainActivity extends ActionBarActivity {
 
     private RelativeLayout mDrawer;
     private DrawerLayout mDrawerLayout;
@@ -80,6 +78,8 @@ public class MainActivity extends ActionBarActivity implements PopularRecipeFrag
             case 1: getFragmentManager().beginTransaction().replace(R.id.container, new PopularRecipeFragment()).addToBackStack(null).commit();
                 break;
 
+            case 2: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_FridgeSearch()).addToBackStack(null).commit();
+                break;
 
             case 3: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_Favourites()).addToBackStack(null).commit();
                 break;
@@ -115,10 +115,6 @@ public class MainActivity extends ActionBarActivity implements PopularRecipeFrag
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onItemSelected(int position, HashMap<String, ?> movie) {
-
-    }
 
     @Override
     public void onBackPressed()

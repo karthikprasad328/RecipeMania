@@ -8,7 +8,7 @@
         android:layout_centerHorizontal="true"
         android:text="REMOVE FROM GROCERY LIST"
         android:id="@+id/removeButton"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom=""/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/cardList"

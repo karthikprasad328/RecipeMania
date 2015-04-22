@@ -29,12 +29,16 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
 
         private ImageView vImage;
 
+        private ImageView vMenu;
+
         public RecipeViewHolder(final View itemView){
             super(itemView);
 
             vImage=(ImageView) itemView.findViewById(R.id.recipelistimage);
 
             vTitle=(TextView)itemView.findViewById(R.id.title);
+
+            vMenu=(ImageView) itemView.findViewById(R.id.menu_list);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -44,6 +48,14 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
                       //  mItemClickListener.onItemLongClick(v,getPosition());
                     }
 
+                }
+            });
+
+            vMenu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mItemClickListener!=null)
+                        mItemClickListener.onOverFlowMenuClick(v,getPosition());
                 }
             });
 
@@ -86,7 +98,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
     public interface OnItemClickListener{
         public void onItemClick(View view, int position);
        // public void onItemLongClick(View view, int position);
-       // public void onOverFlowMenuClick(View view, final int position);
+       public void onOverFlowMenuClick(View view, final int position);
     }
 
     public void SetOnItemClickListener(final OnItemClickListener mItemClickListener){

@@ -126,6 +126,11 @@ public class Fragment_Favourites extends Fragment {
                                 .commit();
 
                     }
+
+                    @Override
+                    public void onOverFlowMenuClick(View view, int position) {
+
+                    }
                 });
 
             }

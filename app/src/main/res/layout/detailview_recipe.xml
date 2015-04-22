@@ -12,7 +12,18 @@
         android:layout_height="200dp"
         android:id="@+id/recipeimage"
         android:layout_below="@+id/recipetitle"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_below="@id/recipeimage"
+            android:indeterminate="true"
+            android:layout_centerHorizontal="true"
+           />
 
         <TextView
         android:layout_width="wrap_content"
@@ -20,6 +31,7 @@
         android:id="@+id/recipetitle"
         android:layout_marginLeft="10dp"
         android:textSize="30sp"
+            android:visibility="gone"
         />
 
         <TextView
@@ -28,14 +40,16 @@
         android:id="@+id/recipepublisher"
         android:layout_below="@+id/recipeimage"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/recipesourceurl"
             android:layout_below="@+id/recipepublisher"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,7 +58,8 @@
             android:id="@+id/textIngredients"
             android:textSize="25sp"
             android:layout_marginLeft="10dp"
-            android:layout_below="@+id/recipesourceurl"/>
+            android:layout_below="@+id/recipesourceurl"
+            android:visibility="gone"/>
 
         <TextView
         android:layout_width="wrap_content"
@@ -52,6 +67,7 @@
         android:id="@+id/ingredients"
         android:layout_below="@+id/textIngredients"
             android:layout_marginLeft="10dp"
+            android:visibility="gone"
             />
 
 
@@ -60,19 +76,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@+id/ingredients">
+            android:layout_below="@+id/ingredients"
+            android:id="@+id/buttonLayout"
+            >
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ADD TO FAVOURITES"
                 android:id="@+id/favouritesButton"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:visibility="gone"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/groceriesButton"
                 android:text="ADD TO GROCERIES"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:visibility="gone"/>
         </LinearLayout>
 
 

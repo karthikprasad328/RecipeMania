@@ -21,14 +21,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/title"
         android:layout_toRightOf="@+id/recipelistimage"
+        android:layout_toLeftOf="@+id/menu_list"
         android:textSize="20sp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:id="@+id/recipeid"
-        android:layout_toRightOf="@+id/recipelistimage"/>
-
+    <ImageView
+        android:id="@+id/menu_list"
+        android:src="@drawable/ic_menu_moreoverflow"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:layout_height="25dp"
+        android:layout_width="25dp"/>
 
 
 </RelativeLayout>

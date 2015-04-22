@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,10 +32,13 @@ public class Fragment_DetailView extends Fragment {
     public TextView publisher;
     public Button favouritesButton;
     public Button groceriesButton;
+    public ProgressBar progressBar;
 
     public Fragment_DetailView(){
 
     }
+
+
 
     public static Fragment_DetailView newInstance(String id){
         Fragment_DetailView fragment = new Fragment_DetailView();
@@ -57,6 +61,7 @@ public class Fragment_DetailView extends Fragment {
         ingredients=(TextView) v.findViewById(R.id.ingredients);
         favouritesButton=(Button)v.findViewById(R.id.favouritesButton);
         groceriesButton=(Button) v.findViewById(R.id.groceriesButton);
+        progressBar=(ProgressBar)v.findViewById(R.id.progressBar);
 
         Bundle bundle = this.getArguments();
         String user = bundle.getString(RECIPE_ID);
@@ -85,6 +90,14 @@ public class Fragment_DetailView extends Fragment {
 
 
         @Override
+        protected void onPreExecute()
+        {
+            progressBar.setVisibility(View.VISIBLE);
+
+        }
+
+
+        @Override
         protected Boolean doInBackground(Void... params) {
             try{
                 RestAdapter restAdapter = new RestAdapter.Builder()
@@ -94,6 +107,7 @@ public class Fragment_DetailView extends Fragment {
 
 
                 WebService service = restAdapter.create(WebService.class);
+
                 recipeElement= service.getFullRecipe(id);
                 if(recipeElement.getRecipe().getIngredients().isEmpty()){
                     throw new InterruptedException() ;
@@ -117,6 +131,15 @@ public class Fragment_DetailView extends Fragment {
         protected void onPostExecute(Boolean success){
             if(success)
             {
+                progressBar.setVisibility(View.GONE);
+                image.setVisibility(View.VISIBLE);
+                title.setVisibility(View.VISIBLE);
+                publisher.setVisibility(View.VISIBLE);
+                source_url.setVisibility(View.VISIBLE);
+                ingredients.setVisibility(View.VISIBLE);
+                favouritesButton.setVisibility(View.VISIBLE);
+                groceriesButton.setVisibility(View.VISIBLE);
+
                 Picasso.with(image.getContext())
                         .load(recipeElement.getRecipe().getImage_url())
                         .into(image);
