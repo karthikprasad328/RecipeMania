@@ -9,8 +9,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.RestAdapter;
 
@@ -26,6 +30,7 @@ public class Fragment_DetailView extends Fragment {
     public TextView ingredients;
     public TextView publisher;
     public Button favouritesButton;
+    public Button groceriesButton;
 
     public Fragment_DetailView(){
 
@@ -51,6 +56,7 @@ public class Fragment_DetailView extends Fragment {
         publisher=(TextView) v.findViewById(R.id.recipepublisher);
         ingredients=(TextView) v.findViewById(R.id.ingredients);
         favouritesButton=(Button)v.findViewById(R.id.favouritesButton);
+        groceriesButton=(Button) v.findViewById(R.id.groceriesButton);
 
         Bundle bundle = this.getArguments();
         String user = bundle.getString(RECIPE_ID);
@@ -118,7 +124,7 @@ public class Fragment_DetailView extends Fragment {
                 title.setText("TITLE: "+(String)recipeElement.getRecipe().getTitle());
                 publisher.setText("Publisher: " +(String)recipeElement.getRecipe().getPublisher());
                 source_url.setText("Source URL: "+(String)recipeElement.getRecipe().getSource_url());
-                ingredients.setText("Ingredients:\n"+(String)recipeElement.getRecipe().getIngredients().get(0));
+                ingredients.setText((String)recipeElement.getRecipe().getIngredients().get(0));
                 for(int i=1;i<recipeElement.getRecipe().getIngredients().size();i++)
                 {
                     ingredients.append("\n"+recipeElement.getRecipe().getIngredients().get(i));
@@ -135,21 +141,30 @@ public class Fragment_DetailView extends Fragment {
                         recipeDbItem1.setTitle(recipeElement.getRecipe().getTitle());
                         if(buttonText.compareTo("ADD TO FAVOURITES")==0) {
                             rdb.addFavourite(recipeDbItem1);
-                            System.out.println("\n Button on click . inserting here");
+                            //System.out.println("\n Button on click . inserting here");
                             favouritesButton.setText("REMOVE FROM FAVOURITES");
+                            Toast.makeText(getActivity().getApplicationContext(), "Added to Favourites", Toast.LENGTH_SHORT).show();
                         }
                         else if(buttonText.compareTo("REMOVE FROM FAVOURITES")==0){
                             rdb.deleteFavourite(recipeDbItem1);
-                            System.out.println("\n Button on click . deleting from database");
+                            //System.out.println("\n Button on click . deleting from database");
                             favouritesButton.setText("ADD TO FAVOURITES");
+                            Toast.makeText(getActivity().getApplicationContext(), "Removed from Favourites", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-
-
-
-
+                groceriesButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        RecipeDatabase rdb=RecipeDatabase.getInstance(getActivity().getApplicationContext());
+                        List<String> groceriesList=new ArrayList<String>();
+                        groceriesList=recipeElement.getRecipe().getIngredients();
+                        //Toast.makeText(getActivity().getApplicationContext(), "Added to Grocery List"+groceriesList.get(0), Toast.LENGTH_SHORT).show();
+                        rdb.addGroceries(groceriesList);
+                        Toast.makeText(getActivity().getApplicationContext(), "Added to Grocery List", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         }

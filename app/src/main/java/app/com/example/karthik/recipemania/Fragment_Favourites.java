@@ -21,7 +21,7 @@ import retrofit.RestAdapter;
 
 public class Fragment_Favourites extends Fragment {
     public static String RECIPE_ID="";
-    static RecipeList recipeList;
+    static RecipeList recipeList=new RecipeList();
     RecyclerView recyclerView;
     public Fragment_Favourites() {
     }
@@ -106,11 +106,9 @@ public class Fragment_Favourites extends Fragment {
                     RecipeListItem recipeListItem = new RecipeListItem(recipeElemList.get(i));
                     recipeListItems.add(recipeListItem);
                 }
-                RecipeList recipeList=new RecipeList();
+                //RecipeList recipeList=new RecipeList();
                 recipeList.setCount(Integer.toString(recipeListItems.size()));
                 recipeList.setRecipes(recipeListItems);
-
-
 
                 MyRecycleViewAdapter myRecycleViewAdapter=new MyRecycleViewAdapter(recipeList);
                 recyclerView.setAdapter(myRecycleViewAdapter);

@@ -84,7 +84,8 @@ public class MainActivity extends ActionBarActivity implements PopularRecipeFrag
             case 3: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_Favourites()).addToBackStack(null).commit();
                 break;
 
-
+            case 5: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_Groceries()).addToBackStack(null).commit();
+                break;
 
             default:getFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
                 break;

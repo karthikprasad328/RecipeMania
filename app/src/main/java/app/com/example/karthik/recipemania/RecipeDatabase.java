@@ -37,6 +37,9 @@ public class RecipeDatabase extends SQLiteOpenHelper {
     String CREATE_FAVOURITES_TABLE = "CREATE TABLE " + TABLE_FAVOURITES + "("
             + KEY_ID + " TEXT PRIMARY KEY," + KEY_TITLE + " TEXT"+ ")";
 
+    String CREATE_GROCERIES_TABLE = "CREATE TABLE "+ TABLE_GROCERIES + "("
+            +KEY_TITLE+" TEXT PRIMARY KEY"+")";
+
 
     //getInstance creates a singleton class
     public static synchronized RecipeDatabase getInstance(Context context)
@@ -49,22 +52,26 @@ public class RecipeDatabase extends SQLiteOpenHelper {
 
     }
 
-
+    //constructor
     public RecipeDatabase(Context context)
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase db)
+    {
         db.execSQL(CREATE_FAVOURITES_TABLE);
+        db.execSQL(CREATE_GROCERIES_TABLE);
+        System.out.println("\n\nIn oncreate");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FAVOURITES);
-
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_GROCERIES);
+        System.out.println("\n\nIn onUpgrade");
         // Create tables again
         onCreate(db);
     }
@@ -116,7 +123,7 @@ public class RecipeDatabase extends SQLiteOpenHelper {
                 recipeDbItem1.setID(cursor.getString(0));
                 recipeDbItem1.setTitle(cursor.getString(1));
 
-                // Adding contact to list
+                // Adding favourite to list
                 recipeDbList.add(recipeDbItem1);
             } while (cursor.moveToNext());
         }
@@ -130,6 +137,48 @@ public class RecipeDatabase extends SQLiteOpenHelper {
         db.delete(TABLE_FAVOURITES, KEY_ID + " = ?",
                 new String[] { String.valueOf(recipeDbItem1.getID()) });
         db.close();
+    }
+
+    //add a grocery item
+    public void addGrocery(String title)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        System.out.println("\n\nAdding to grocery list "+title);
+        ContentValues values = new ContentValues();
+        values.put(KEY_TITLE,title);
+        db.insert(TABLE_GROCERIES,null,values);
+        db.close();
+    }
+
+    //add a list of grocery items
+    public void addGroceries(List<String> groceryList)
+    {
+        for(int i=0;i<groceryList.size();i++)
+        {
+            addGrocery(groceryList.get(i));
+        }
+    }
+
+    //get a grocery
+
+    //get list of all groceries
+    public List<String> getGroceries()
+    {
+        List<String> groceryList=new ArrayList<String>();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_GROCERIES;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                groceryList.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+
+        return groceryList;
     }
 
 

@@ -41,9 +41,13 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
                 public void onClick(View v) {
                     if (mItemClickListener != null) {
                         mItemClickListener.onItemClick(v, getPosition());
+                      //  mItemClickListener.onItemLongClick(v,getPosition());
                     }
+
                 }
             });
+
+
         }
 
         public void bindRecipeData(RecipeListItem recipeListitem)
@@ -81,7 +85,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
 
     public interface OnItemClickListener{
         public void onItemClick(View view, int position);
-        //public void onItemLongClick(View view, int position);
+       // public void onItemLongClick(View view, int position);
        // public void onOverFlowMenuClick(View view, final int position);
     }
 
