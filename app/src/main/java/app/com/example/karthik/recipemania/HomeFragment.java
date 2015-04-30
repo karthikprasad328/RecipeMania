@@ -1,16 +1,21 @@
 package app.com.example.karthik.recipemania;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 /**
  * Created by Karthik on 4/20/2015.
  */
 public class HomeFragment extends android.app.Fragment {
 
-
+    ImageButton imageButton;
     public HomeFragment(){}
 
 
@@ -19,12 +24,19 @@ public class HomeFragment extends android.app.Fragment {
         // View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         View rootView = inflater.inflate(R.layout.homefragment, container, false);
 
-//            recyclerView=(RecyclerView)rootView.findViewById(R.id.cardList);
-//            mLayoutManager = new LinearLayoutManager(getActivity());
-//            recyclerView.setHasFixedSize(true);
-//            recyclerView.setLayoutManager(mLayoutManager);
-//            fetchRecipeList=new FetchRecipeList(recyclerView,getActivity());
-//            fetchRecipeList.execute();
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("RecipeMania");
+
+        imageButton=(ImageButton)rootView.findViewById(R.id.homeimage);
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    YoYo.with(Techniques.StandUp)
+                            .duration(700)
+                            .playOn(imageButton);
+            }
+        });
 
 
         return rootView;

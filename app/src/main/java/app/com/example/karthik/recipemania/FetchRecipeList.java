@@ -59,6 +59,7 @@ public class FetchRecipeList extends AsyncTask<Void,Void,Boolean> {
         if(success)
         {
             myRecycleViewAdapter=new MyRecycleViewAdapter(recipeList);
+
             recyclerView.setAdapter(myRecycleViewAdapter);
             //System.out.println("\n printing in postExecute");
 
@@ -100,8 +101,8 @@ public class FetchRecipeList extends AsyncTask<Void,Void,Boolean> {
                                         rdb.addFavourite(recipeDbItem1);
                                         Toast.makeText(activity.getApplicationContext(), "Added to Favourites", Toast.LENGTH_SHORT).show();
                                     }
-
                                    return true;
+
                                 default:
                                    return false;
                             }

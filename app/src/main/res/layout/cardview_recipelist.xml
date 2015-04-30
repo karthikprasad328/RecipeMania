@@ -6,23 +6,36 @@
     android:layout_margin="5dp"
     card_view:cardCornerRadius="5dp"
     android:layout_height="match_parent"
-    android:background="#ffff8a06"
     >
 <RelativeLayout
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
-    <ImageView
-       android:id="@+id/recipelistimage"
-       android:layout_height="150dp"
-       android:layout_width="160dp"
-        android:scaleType="fitXY"/>
+    android:layout_height="105dp"
+    android:layout_width="match_parent"
+    android:background="@drawable/cc"
+    >
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/recipelistimage"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+
+        />
+    <!--<ImageView-->
+       <!--android:id="@+id/recipelistimage"-->
+       <!--android:layout_height="100dp"-->
+       <!--android:layout_width="120dp"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:padding="10dp"/>-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/title"
         android:layout_toRightOf="@+id/recipelistimage"
         android:layout_toLeftOf="@+id/menu_list"
-        android:textSize="20sp"/>
+        android:textSize="18sp"
+        android:textColor="#ffffffff"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"/>
+
     <ImageView
         android:id="@+id/menu_list"
         android:src="@drawable/ic_menu_moreoverflow"

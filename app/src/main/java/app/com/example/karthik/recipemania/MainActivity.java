@@ -30,6 +30,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+       // mToolbar.setTitleTextColor(Integer.parseInt("#ffffff"));
         setSupportActionBar(mToolbar);
 
         RecipeDatabase rdb=new RecipeDatabase(getApplicationContext());
@@ -64,7 +65,9 @@ public class MainActivity extends ActionBarActivity {
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeButtonEnabled(true);
+        mDrawerToggle.syncState();
         if (savedInstanceState == null) {
             selectItem(0);
         }
@@ -84,12 +87,21 @@ public class MainActivity extends ActionBarActivity {
             case 3: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_Favourites()).addToBackStack(null).commit();
                 break;
 
+            case 4: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_Planner()).addToBackStack(null).commit();
+                break;
+
             case 5: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_Groceries()).addToBackStack(null).commit();
                 break;
+
+            case 6: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_About()).addToBackStack(null).commit();
+
+                break;
+
 
             default:getFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
                 break;
         }
+        mDrawerLayout.closeDrawer(mDrawer);
     }
 
 
@@ -109,7 +121,7 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_About()).addToBackStack(null).commit();
         }
 
         return super.onOptionsItemSelected(item);

@@ -8,6 +8,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:minHeight="?attr/actionBarSize"
-        android:background="#ccc">
+        android:titleTextAppearance="@color/background_material_light"
+
+        android:background="#ffffffff">
     </android.support.v7.widget.Toolbar>
 </LinearLayout>

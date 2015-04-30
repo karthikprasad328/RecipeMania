@@ -2,12 +2,16 @@ package app.com.example.karthik.recipemania;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
+
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +31,9 @@ public class Fragment_Groceries extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.recyclerview_grocerylist, container, false);
+
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("My Grocery List");
+
         recyclerView=(RecyclerView)rootView.findViewById(R.id.cardList);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
@@ -37,7 +44,8 @@ public class Fragment_Groceries extends Fragment{
         final MyGroceryListAdapter myGroceryListAdapter=new MyGroceryListAdapter(groceryItemsList.getGroceryList());
         recyclerView.setAdapter(myGroceryListAdapter);
 
-        Button removeButton=(Button) rootView.findViewById(R.id.removeButton);
+        //Button removeButton=(Button) rootView.findViewById(R.id.removeButton);
+        final ImageButton removeButton=(ImageButton)rootView.findViewById(R.id.removeButton);
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,10 +54,14 @@ public class Fragment_Groceries extends Fragment{
                    // HashMap<String,Boolean> entry=(HashMap<String,Boolean>)groceryItemsList.getItem(i);
                     HashMap entry=(HashMap)groceryItemsList.getItem(i);
                     Boolean b=(Boolean)entry.get("selection");
+                    YoYo.with(Techniques.Wobble)
+                            .duration(700)
+                            .playOn(removeButton);
                     if(b==true){
                         rdb.deleteGrocery((String)groceryItemsList.getItem(i).get("title"));
                         groceryItemsList.groceryList.remove(i);
                         myGroceryListAdapter.notifyItemRemoved(i);
+
 
                     }
                 }

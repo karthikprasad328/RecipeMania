@@ -90,6 +90,8 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
 
     }
 
+
+
     @Override
     public int getItemCount() {
         return Integer.parseInt(recipeList.getCount());

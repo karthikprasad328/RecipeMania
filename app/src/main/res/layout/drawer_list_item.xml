@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="48dp"
     android:weightSum="1">
 
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_margin="10dp"
+        android:layout_margin="16dp"
         android:id="@+id/icon" />
 
     <TextView
@@ -16,5 +16,6 @@
         android:layout_toRightOf="@+id/icon"
         android:id="@+id/title"
         android:layout_margin="10dp"
-        android:textSize="18dp"/>
+        android:textSize="14sp"/>
+
 </RelativeLayout>

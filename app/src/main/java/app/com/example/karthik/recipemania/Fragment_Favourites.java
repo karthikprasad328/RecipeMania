@@ -3,11 +3,13 @@ package app.com.example.karthik.recipemania;
 import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,11 @@ public class Fragment_Favourites extends Fragment {
         // View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         View rootView = inflater.inflate(R.layout.recyclerview_recipelist, container, false);
         recyclerView=(RecyclerView)rootView.findViewById(R.id.cardList);
+
+        TextView heading =(TextView)rootView.findViewById(R.id.popularText);
+        heading.setText("");
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("My Favourite Recipes");
+
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLayoutManager);

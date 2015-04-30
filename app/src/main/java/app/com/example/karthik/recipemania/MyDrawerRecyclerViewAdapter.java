@@ -2,6 +2,7 @@ package app.com.example.karthik.recipemania;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,8 @@ public class MyDrawerRecyclerViewAdapter extends RecyclerView.Adapter<MyDrawerRe
             vView = v;
             vIcon = (ImageView)v.findViewById(R.id.icon);
             vTitle = (TextView)v.findViewById(R.id.title);
+            Typeface typeFace=Typeface.createFromAsset(mcontext.getAssets(),"fonts/Roboto-Regular.ttf");
+            vTitle.setTypeface(typeFace);
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
