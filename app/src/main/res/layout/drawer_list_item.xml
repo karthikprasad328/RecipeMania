@@ -43,5 +43,8 @@
         android:layout_margin="10dp"
         android:textSize="14sp"/>
 
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 </RelativeLayout>

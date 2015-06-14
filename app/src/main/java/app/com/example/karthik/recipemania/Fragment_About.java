@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package app.com.example.karthik.recipemania;
 
 import android.app.Fragment;
@@ -39,6 +40,8 @@ public class Fragment_About extends Fragment {
 
     }
 =======
+=======
+>>>>>>> origin/master
 package app.com.example.karthik.recipemania;
 
 import android.app.Fragment;
@@ -78,5 +81,8 @@ public class Fragment_About extends Fragment {
         return v;
 
     }
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 }

@@ -90,5 +90,8 @@
         android:clickable="true"
         />
 </RelativeLayout>
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 </android.support.v7.widget.CardView>

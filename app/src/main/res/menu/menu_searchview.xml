@@ -25,5 +25,8 @@
         app:showAsAction="always|collapseActionView"
         android:queryHint="ENTER INGREDIENTS"
         />
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 </menu>
