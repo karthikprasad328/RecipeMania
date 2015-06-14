@@ -1,14 +1,31 @@
 package app.com.example.karthik.recipemania;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.nirhart.parallaxscroll.views.ParallaxScrollView;
 
 /**
  * Created by Karthik on 4/20/2015.
  */
 public class HomeFragment extends android.app.Fragment {
+
+    ImageButton imageButton;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager mLayoutManager;
+    private FetchRecipeList fetchRecipeList;
+    private ParallaxScrollView parallaxScrollView;
 
 
     public HomeFragment(){}
@@ -19,12 +36,14 @@ public class HomeFragment extends android.app.Fragment {
         // View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         View rootView = inflater.inflate(R.layout.homefragment, container, false);
 
-//            recyclerView=(RecyclerView)rootView.findViewById(R.id.cardList);
-//            mLayoutManager = new LinearLayoutManager(getActivity());
-//            recyclerView.setHasFixedSize(true);
-//            recyclerView.setLayoutManager(mLayoutManager);
-//            fetchRecipeList=new FetchRecipeList(recyclerView,getActivity());
-//            fetchRecipeList.execute();
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("RecipeMania");
+
+        AdView mAdView = (AdView) rootView.findViewById(R.id.adView);
+        AdRequest.Builder adRequest=new AdRequest.Builder().addTestDevice("motorola-xt1032-TA9300HB5L");
+        AdRequest adRequest2 = adRequest.build();
+
+        mAdView.loadAd(adRequest2);
+
 
 
         return rootView;

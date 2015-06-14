@@ -51,14 +51,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
                 }
             });
 
-            vMenu.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(mItemClickListener!=null)
-                        mItemClickListener.onOverFlowMenuClick(v,getPosition());
-                }
-            });
-
+//
 
         }
 
@@ -90,6 +83,8 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
 
     }
 
+
+
     @Override
     public int getItemCount() {
         return Integer.parseInt(recipeList.getCount());
@@ -98,7 +93,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
     public interface OnItemClickListener{
         public void onItemClick(View view, int position);
        // public void onItemLongClick(View view, int position);
-       public void onOverFlowMenuClick(View view, final int position);
+//       public void onOverFlowMenuClick(View view, final int position);
     }
 
     public void SetOnItemClickListener(final OnItemClickListener mItemClickListener){

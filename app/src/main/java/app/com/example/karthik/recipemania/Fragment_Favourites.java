@@ -1,17 +1,24 @@
 package app.com.example.karthik.recipemania;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import retrofit.RestAdapter;
 
 /**
@@ -23,6 +30,8 @@ public class Fragment_Favourites extends Fragment {
     public static String RECIPE_ID="";
     static RecipeList recipeList=new RecipeList();
     RecyclerView recyclerView;
+    Boolean isConnected;
+
     public Fragment_Favourites() {
     }
 
@@ -40,6 +49,10 @@ public class Fragment_Favourites extends Fragment {
         // View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         View rootView = inflater.inflate(R.layout.recyclerview_recipelist, container, false);
         recyclerView=(RecyclerView)rootView.findViewById(R.id.cardList);
+
+
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("My Favourite Recipes");
+
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -71,23 +84,35 @@ public class Fragment_Favourites extends Fragment {
 
         @Override
         protected List<RecipeElement> doInBackground(Void... params) {
-            try{
-                RestAdapter restAdapter = new RestAdapter.Builder()
-                        .setEndpoint("http://www.food2fork.com")
-                        .setLogLevel(RestAdapter.LogLevel.BASIC)
-                        .build();
+            try {
+                ConnectivityManager cm =
+                        (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+                if (isConnected) {
+                    RestAdapter restAdapter = new RestAdapter.Builder()
+                            .setEndpoint("http://www.food2fork.com")
+                            .setLogLevel(RestAdapter.LogLevel.BASIC)
+                            .build();
 
 
-                WebService service = restAdapter.create(WebService.class);
-                for(int i=0;i<recipeDbItem1.size();i++) {
-                    RecipeElement recipeElement=new RecipeElement();
-                    recipeElement = service.getFullRecipe(recipeDbItem1.get(i).getID());
-                    System.out.println("\n\n inside fetchFavs Id is: "+recipeDbItem1.get(i).getID());
-                    recipeElemList.add(recipeElement);
-                    if (recipeElement.getRecipe().getIngredients()==null) {
-                        System.out.println("\n\n inside fetchFavs exception, ID is: "+recipeElement.getRecipe().getRecipe_id());
-                        throw new InterruptedException();
+                    WebService service = restAdapter.create(WebService.class);
+                    for (int i = 0; i < recipeDbItem1.size(); i++) {
+                        RecipeElement recipeElement = new RecipeElement();
+                        recipeElement = service.getFullRecipe(recipeDbItem1.get(i).getID());
+                        System.out.println("\n\n inside fetchFavs Id is: " + recipeDbItem1.get(i).getID());
+                        recipeElemList.add(recipeElement);
+                        if (recipeElement.getRecipe().getIngredients() == null) {
+                            System.out.println("\n\n inside fetchFavs exception, ID is: " + recipeElement.getRecipe().getRecipe_id());
+                            throw new InterruptedException();
+                        }
                     }
+                }
+                else
+                {
+                    recipeElemList=null;
                 }
             }
             catch (Exception e) {
@@ -99,40 +124,40 @@ public class Fragment_Favourites extends Fragment {
         protected void onPostExecute(List<RecipeElement> recipeElemList)
         {
             List<RecipeListItem> recipeListItems=new ArrayList<RecipeListItem>();
-            if(recipeElemList!=null)
-            {
-                System.out.println("\n\nFetchFavourites AsyncTask fetched");
-                for (int i = 0; i < recipeElemList.size(); i++) {
-                    RecipeListItem recipeListItem = new RecipeListItem(recipeElemList.get(i));
-                    recipeListItems.add(recipeListItem);
+            if(recipeElemList!=null) {
+                if (!recipeElemList.isEmpty()) {
+                    System.out.println("\n\nFetchFavourites AsyncTask fetched");
+                    for (int i = 0; i < recipeElemList.size(); i++) {
+                        RecipeListItem recipeListItem = new RecipeListItem(recipeElemList.get(i));
+                        recipeListItems.add(recipeListItem);
+                    }
+                    //RecipeList recipeList=new RecipeList();
+                    recipeList.setCount(Integer.toString(recipeListItems.size()));
+                    recipeList.setRecipes(recipeListItems);
+
+                    MyRecycleViewAdapter myRecycleViewAdapter = new MyRecycleViewAdapter(recipeList);
+                    recyclerView.setAdapter(myRecycleViewAdapter);
+                    //System.out.println("\n printing in postExecute");
+
+                    myRecycleViewAdapter.SetOnItemClickListener(new MyRecycleViewAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            System.out.println("\n\nItem CLicked\n");
+                            String id = Fragment_Favourites.recipeList.getRecipes().get(position).getRecipe_id();
+
+                            getActivity().getFragmentManager().beginTransaction()
+                                    .replace(R.id.container, Fragment_DetailView.newInstance(id))
+                                    .addToBackStack(null)
+                                    .commit();
+                        }
+                    });
                 }
-                //RecipeList recipeList=new RecipeList();
-                recipeList.setCount(Integer.toString(recipeListItems.size()));
-                recipeList.setRecipes(recipeListItems);
-
-                MyRecycleViewAdapter myRecycleViewAdapter=new MyRecycleViewAdapter(recipeList);
-                recyclerView.setAdapter(myRecycleViewAdapter);
-                //System.out.println("\n printing in postExecute");
-
-                myRecycleViewAdapter.SetOnItemClickListener(new MyRecycleViewAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        System.out.println("\n\nItem CLicked\n");
-                        String id=Fragment_Favourites.recipeList.getRecipes().get(position).getRecipe_id();
-
-                        getActivity().getFragmentManager().beginTransaction()
-                                .replace(R.id.container,Fragment_DetailView.newInstance(id))
-                                .addToBackStack(null)
-                                .commit();
-
-                    }
-
-                    @Override
-                    public void onOverFlowMenuClick(View view, int position) {
-
-                    }
-                });
-
+                else {
+                    Crouton.makeText(getActivity(), "NO FAVOURITES YET. BROWSE THROUGH OUR POPULAR RECIPES TO ADD SOME.", Style.INFO).show();
+                }
+            }
+            else {
+                Crouton.makeText(getActivity(), "NO NETWORK CONNECTION, TRY AGAIN LATER", Style.ALERT).show();
             }
         }
     }

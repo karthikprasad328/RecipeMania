@@ -16,5 +16,7 @@ public class RecipeList {
 
     public String getCount(){return count;}
 
+    public void clear(){recipes.clear(); count="0";}
+
     public List<RecipeListItem> getRecipes(){return  recipes;}
 }

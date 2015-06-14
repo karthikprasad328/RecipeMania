@@ -1,104 +1,266 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-    <RelativeLayout
-    android:layout_height="match_parent"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
         <ImageView
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:id="@+id/recipeimage"
-        android:layout_below="@+id/recipetitle"
-        android:layout_centerHorizontal="true"
-        />
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
-            android:layout_below="@id/recipeimage"
-            android:indeterminate="true"
-            android:layout_centerHorizontal="true"
-           />
-
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/recipetitle"
-        android:layout_marginLeft="10dp"
-        android:textSize="30sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:id="@+id/background"
+            android:layout_alignTop="@+id/foregroundLayout"
+            android:layout_alignBottom="@+id/foregroundLayout"
             android:visibility="gone"
-        />
-
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/recipepublisher"
-        android:layout_below="@+id/recipeimage"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-            android:visibility="gone"/>
-
-        <TextView
-            android:layout_width="wrap_content"
+            android:src="@drawable/niceblue"/>
+        <LinearLayout
             android:layout_height="wrap_content"
-            android:id="@+id/recipesourceurl"
-            android:layout_below="@+id/recipepublisher"
-            android:layout_marginLeft="10dp"
-            android:visibility="gone"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="INGREDIENTS:"
-            android:id="@+id/textIngredients"
-            android:textSize="25sp"
-            android:layout_marginLeft="10dp"
-            android:layout_below="@+id/recipesourceurl"
-            android:visibility="gone"/>
-
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/ingredients"
-        android:layout_below="@+id/textIngredients"
-            android:layout_marginLeft="10dp"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+             android:id="@+id/foregroundLayout"
             android:visibility="gone"
+            android:orientation="vertical">
+
+             <TextView
+                 android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                 android:id="@+id/recipetitle"
+                 android:layout_marginLeft="10dp"
+                 android:textSize="30sp"
+                 android:gravity="center"
+                 android:visibility="gone"
+            android:textColor="@color/background_floating_material_light"/>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                 android:background="@android:color/darker_gray"
+                android:layout_below="@+id/recipetitle"
+                android:layout_marginTop="10dp"
+                android:id="@+id/divider1"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/divider1"
+                android:id="@+id/layoutimage"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="200dp"
+                    android:id="@+id/recipeimage"
+                    android:layout_gravity="center"
+
+                    android:scaleType="fitXY"
+                android:padding="5dp" />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_below="@+id/layoutimage"
+                android:id="@+id/divider3"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                  android:orientation="horizontal"
+                 android:layout_below="@+id/divider3"
+                 android:id="@+id/buttonLayout1">
+
+            <com.dd.CircularProgressButton
+                android:id="@+id/favouritesButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_weight="4"
+                android:textColor="#ffffffff"
+                app:cpb_selectorComplete="@drawable/complete_state_selector"
+                app:cpb_selectorIdle="@drawable/idle_state_selector"
+                app:cpb_colorIndicator="@color/cpb_blue"
+                app:cpb_colorIndicatorBackground="@color/cpb_grey"
+                app:cpb_colorProgress="@color/cpb_white"
+                app:cpb_textComplete="REMOVE FROM FAVOURITES"
+                app:cpb_textError="Error"
+                app:cpb_textIdle="ADD TO FAVOURITES"
+                app:cpb_cornerRadius="48dp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"/>
+
+            <com.dd.CircularProgressButton
+                android:id="@+id/groceriesButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_weight="4"
+                android:textColor="#ffffffff"
+                app:cpb_selectorComplete="@drawable/complete_state_selector"
+                app:cpb_selectorIdle="@drawable/idle_state_selector"
+                app:cpb_colorIndicator="@color/cpb_blue"
+                app:cpb_colorIndicatorBackground="@color/cpb_grey"
+                app:cpb_colorProgress="@color/cpb_white"
+                app:cpb_textComplete="ADDED TO GROCERY LIST"
+                app:cpb_textError="Error"
+                app:cpb_textIdle="ADD TO GROCERY LIST"
+                app:cpb_cornerRadius="48dp"/>
+            </LinearLayout>
+
+
+             <View
+                 android:layout_width="fill_parent"
+                 android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_below="@+id/buttonLayout1"
+                android:id="@+id/divider2"/>
+
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:id="@+id/progressBar"
+                android:layout_below="@id/divider2"
+                android:indeterminate="true"
+                 android:layout_centerHorizontal="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INGREDIENTS:"
+                android:id="@+id/textIngredients"
+                android:textSize="22sp"
+                android:textColor="#ffffffff"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@+id/divider2"
+                android:visibility="gone"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                android:id="@+id/ingredients"
+                android:layout_below="@+id/textIngredients"
+                android:layout_marginLeft="18dp"
+                android:textSize="15sp"
+                android:textColor="#ffffffff"
+                android:visibility="gone"
             />
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/ingredients"
+                android:id="@+id/divider5"/>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@+id/ingredients"
-            android:id="@+id/buttonLayout"
-            >
-            <Button
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ADD TO FAVOURITES"
-                android:id="@+id/favouritesButton"
-                android:layout_weight="1"
-                android:visibility="gone"/>
-            <Button
+                android:id="@+id/sourceurl"
+                android:layout_below="@+id/divider5"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/groceriesButton"
-                android:text="ADD TO GROCERIES"
-                android:layout_weight="1"
+                android:text="SOURCE URL:   "
+                android:textSize="22sp"
+                android:id="@+id/textSource"
+                android:textColor="#ffffffff"
                 android:visibility="gone"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recipesourceurl"
+                android:visibility="gone"
+                android:layout_marginLeft="8dp"
+                android:clickable="true"
+                android:textSize="15sp"
+                android:textColor="#ffffffff"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray"
+                android:layout_below="@+id/sourceurl"
+                android:id="@+id/divider4"/>
+
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="horizontal"
+                android:layout_below="@+id/divider4"
+                android:id="@+id/buttonLayout"
+                >
+
+            <com.dd.CircularProgressButton
+                android:id="@+id/sourceUrlButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_weight="4"
+                android:textColor="#ffffffff"
+                app:cpb_selectorComplete="@drawable/complete_state_selector"
+                app:cpb_selectorIdle="@drawable/idle_state_selector"
+                app:cpb_colorIndicator="@color/cpb_blue"
+                app:cpb_colorIndicatorBackground="@color/cpb_grey"
+                app:cpb_colorProgress="@color/cpb_white"
+                app:cpb_textComplete="VISIT SOURCE URL"
+                app:cpb_textError="Error"
+                app:cpb_textIdle="VISIT SOURCE URL"
+                app:cpb_cornerRadius="48dp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"/>
+
+            <com.dd.CircularProgressButton
+                android:id="@+id/plannerButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_weight="4"
+                android:textColor="#ffffffff"
+                app:cpb_selectorComplete="@drawable/complete_state_selector"
+                app:cpb_selectorIdle="@drawable/idle_state_selector"
+                app:cpb_colorIndicator="@color/cpb_blue"
+                app:cpb_colorIndicatorBackground="@color/cpb_grey"
+                app:cpb_colorProgress="@color/cpb_white"
+                app:cpb_textComplete="ADD TO PLANNER"
+                app:cpb_textError="Error"
+                app:cpb_textIdle="ADD TO PLANNER"
+                app:cpb_cornerRadius="48dp"/>
+
+
+
+            </LinearLayout>
+        
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
+
         </LinearLayout>
-
-
-
-
-
-
     </RelativeLayout>
+
+    <!--</RelativeLayout>-->
 </ScrollView>

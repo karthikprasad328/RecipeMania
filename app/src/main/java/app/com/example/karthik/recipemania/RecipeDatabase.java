@@ -71,7 +71,7 @@ public class RecipeDatabase extends SQLiteOpenHelper {
 // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FAVOURITES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_GROCERIES);
-        System.out.println("\n\nIn onUpgrade");
+        //System.out.println("\n\nIn onUpgrade");
         // Create tables again
         onCreate(db);
     }
@@ -86,7 +86,7 @@ public class RecipeDatabase extends SQLiteOpenHelper {
         //insert a row
         db.insert(TABLE_FAVOURITES,null,values);
         db.close();
-        System.out.println("\n Inserted into Favourites Table: "+recipeDbItem1.getID()+" "+recipeDbItem1.getTitle());
+        //System.out.println("\n Inserted into Favourites Table: "+recipeDbItem1.getID()+" "+recipeDbItem1.getTitle());
     }
 
     //get a favourite item
@@ -100,9 +100,9 @@ public class RecipeDatabase extends SQLiteOpenHelper {
         if (cursor != null) {
             if(cursor.moveToFirst()) {
                 recipeDbItem1 = new RecipeDbItem1(cursor.getString(0), cursor.getString(1));
-                System.out.println("\n\nGetFavourite function clicked id: " + cursor.getString(0));
+               // System.out.println("\n\nGetFavourite function clicked id: " + cursor.getString(0));
             }
-            else{System.out.println("\n\nGetFavourite cursor not null");}
+           // else{System.out.println("\n\nGetFavourite cursor not null");}
         }
 
         return recipeDbItem1;

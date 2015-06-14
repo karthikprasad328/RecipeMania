@@ -2,6 +2,7 @@ package app.com.example.karthik.recipemania;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * Created by Karthik on 4/21/2015.
@@ -62,12 +64,13 @@ public class Fragment_FridgeSearch extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.recyclerview_recipelist, container, false);
 
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("Enter Ingredients");
         recyclerView=(RecyclerView)rootView.findViewById(R.id.cardList);
         mLayoutManager = new LinearLayoutManager(getActivity());
         //mLayoutManager=new GridLayoutManager(getActivity(),2);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLayoutManager);
-        fetchRecipeList=new FetchRecipeList(recyclerView,getActivity());
+        fetchRecipeList=new FetchRecipeList(recyclerView,getActivity(),"0");
         fetchRecipeList.execute();
 
 

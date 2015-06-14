@@ -1,5 +1,6 @@
 package app.com.example.karthik.recipemania;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -30,6 +31,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+       // mToolbar.setTitleTextColor(Integer.parseInt("#ffffff"));
         setSupportActionBar(mToolbar);
 
         RecipeDatabase rdb=new RecipeDatabase(getApplicationContext());
@@ -64,7 +66,9 @@ public class MainActivity extends ActionBarActivity {
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeButtonEnabled(true);
+        mDrawerToggle.syncState();
         if (savedInstanceState == null) {
             selectItem(0);
         }
@@ -73,8 +77,10 @@ public class MainActivity extends ActionBarActivity {
     private void selectItem(int position) {
         // update the main content by replacing fragments
         switch (position) {
-            case 0: getFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
+            case 0: clearBackStack();
+                getFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
                 break;
+
             case 1: getFragmentManager().beginTransaction().replace(R.id.container, new PopularRecipeFragment()).addToBackStack(null).commit();
                 break;
 
@@ -84,12 +90,16 @@ public class MainActivity extends ActionBarActivity {
             case 3: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_Favourites()).addToBackStack(null).commit();
                 break;
 
-            case 5: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_Groceries()).addToBackStack(null).commit();
+            case 4: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_Groceries()).addToBackStack(null).commit();
+                break;
+
+            case 5: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_About()).addToBackStack(null).commit();
                 break;
 
             default:getFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
                 break;
         }
+        mDrawerLayout.closeDrawer(mDrawer);
     }
 
 
@@ -109,10 +119,16 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_About()).addToBackStack(null).commit();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void clearBackStack()
+    {
+        while(getFragmentManager().getBackStackEntryCount()!=0)
+            getFragmentManager().popBackStackImmediate();
     }
 
 
@@ -121,43 +137,11 @@ public class MainActivity extends ActionBarActivity {
     {
         // Catch back action and pops from backstack
         // (if you called previously to addToBackStack() in your transaction)
-        if (getFragmentManager().getBackStackEntryCount() > 0){
+        int stackCount=getFragmentManager().getBackStackEntryCount();
+        if (stackCount > 0 &&(getFragmentManager().getBackStackEntryAt(0) != getFragmentManager().getBackStackEntryAt(stackCount-1))) {
             getFragmentManager().popBackStack();
         }
         // Default action on back pressed
         else super.onBackPressed();
-    }
-
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        private FetchRecipeWithIngredients fetchRecipeWithIngredientsList;
-        private FetchRecipeList fetchRecipeList;
-        //private FetchDetailRecipe fetchDetailRecipe;
-        private RecyclerView recyclerView;
-        private LinearLayoutManager mLayoutManager;
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-           // View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            View rootView = inflater.inflate(R.layout.recyclerview_recipelist, container, false);
-
-//            recyclerView=(RecyclerView)rootView.findViewById(R.id.cardList);
-//            mLayoutManager = new LinearLayoutManager(getActivity());
-//            recyclerView.setHasFixedSize(true);
-//            recyclerView.setLayoutManager(mLayoutManager);
-//            fetchRecipeList=new FetchRecipeList(recyclerView,getActivity());
-//            fetchRecipeList.execute();
-
-
-            return rootView;
-        }
     }
 }

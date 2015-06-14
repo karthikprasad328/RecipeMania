@@ -10,10 +10,10 @@ import retrofit.http.Query;
 public interface WebService {
 
     @GET("/api/search?key=94bb6246be7efb1ed390e94c71e2d389")
-    RecipeList getRecipeList();
+    RecipeList getRecipeList(@Query("page") String pageno);
 
     @GET("/api/search?key=94bb6246be7efb1ed390e94c71e2d389")
-    RecipeList getRecipeQueryList(@Query("q") String query);
+    RecipeList getRecipeQueryList(@Query("q") String query,@Query("page") String pageno);
 
 
    @GET("/api/get?key=94bb6246be7efb1ed390e94c71e2d389")
