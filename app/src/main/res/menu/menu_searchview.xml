@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,4 +12,18 @@
         app:showAsAction="always|collapseActionView"
         android:queryHint="ENTER INGREDIENTS"
         />
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item android:id="@+id/search"
+        android:title="Search Text"
+        android:orderInCategory="100"
+        android:icon="@drawable/search_black"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always|collapseActionView"
+        android:queryHint="ENTER INGREDIENTS"
+        />
+>>>>>>> origin/master
 </menu>
