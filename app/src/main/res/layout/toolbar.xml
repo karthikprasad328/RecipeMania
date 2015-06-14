@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
@@ -13,20 +12,4 @@
 
         android:background="#ffffffff">
     </android.support.v7.widget.Toolbar>
-=======
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:minHeight="?attr/actionBarSize"
-        android:titleTextAppearance="@color/background_material_light"
-
-        android:background="#ffffffff">
-    </android.support.v7.widget.Toolbar>
->>>>>>> origin/master
 </LinearLayout>
