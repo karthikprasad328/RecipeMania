@@ -1,4 +1,4 @@
-
+<<<<<<< HEAD
 apply plugin: 'com.android.application'
 
 android {
@@ -45,6 +45,8 @@ dependencies {
     }
 }
 
+
+=======
 apply plugin: 'com.android.application'
 
 android {
@@ -86,3 +88,8 @@ dependencies {
 
 }
 
+
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
+>>>>>>> origin/master
