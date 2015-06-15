@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <RelativeLayout
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -59,3 +60,18 @@
         >
     </com.google.android.gms.ads.AdView>
 </RelativeLayout>
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@drawable/b">
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:id="@+id/homeimage"
+        android:scaleType="fitXY"
+        android:src="@drawable/homefinal"/>
+
+</LinearLayout>
+>>>>>>> origin/master
