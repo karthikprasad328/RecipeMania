@@ -32,16 +32,16 @@ public class GroceryItemsList {
             return (HashMap) groceryList.get(i);
         } else return null;
     }
-
-    public void deleteGroceries()
-    {
-        for(int i=groceryList.size()-1;i>=0;i++)
-        {
-            HashMap entry=(HashMap)groceryList.get(i);
-            if (entry.get("selection")==true) {
-                groceryList.remove(entry);
-                deleteGroceries();
-            }
-        }
-    }
+//
+//    public void deleteGroceries()
+//    {
+//        for(int i=groceryList.size()-1;i>=0;i++)
+//        {
+//            HashMap entry=(HashMap)groceryList.get(i);
+//            if (entry.get("selection")==true) {
+//                groceryList.remove(entry);
+//                deleteGroceries();
+//            }
+//        }
+//    }
 }
