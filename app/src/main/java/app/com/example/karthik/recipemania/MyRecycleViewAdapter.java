@@ -12,10 +12,10 @@ import com.squareup.picasso.Picasso;
 /*
  * Created by Karthik on 4/19/2015.
  */
-public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.RecipeViewHolder> {
-   // private final Context mcontext;
+class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.RecipeViewHolder> {
+    // private final Context mcontext;
 
-    OnItemClickListener mItemClickListener;
+    private OnItemClickListener mItemClickListener;
 
     private final RecipeList recipeList;
 
@@ -24,28 +24,28 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
     }
 
     //create a viewholder
-    public class RecipeViewHolder extends RecyclerView.ViewHolder{
+    class RecipeViewHolder extends RecyclerView.ViewHolder {
         private TextView vTitle;
 
         private ImageView vImage;
 
         private ImageView vMenu;
 
-        public RecipeViewHolder(final View itemView){
+        RecipeViewHolder(final View itemView) {
             super(itemView);
 
-            vImage=(ImageView) itemView.findViewById(R.id.recipelistimage);
+            vImage = (ImageView) itemView.findViewById(R.id.recipelistimage);
 
-            vTitle=(TextView)itemView.findViewById(R.id.title);
+            vTitle = (TextView) itemView.findViewById(R.id.title);
 
-            vMenu=(ImageView) itemView.findViewById(R.id.menu_list);
+            vMenu = (ImageView) itemView.findViewById(R.id.menu_list);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mItemClickListener != null) {
                         mItemClickListener.onItemClick(v, getPosition());
-                      //  mItemClickListener.onItemLongClick(v,getPosition());
+                        //  mItemClickListener.onItemLongClick(v,getPosition());
                     }
 
                 }
@@ -55,8 +55,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
 
         }
 
-        public void bindRecipeData(RecipeListItem recipeListitem)
-        {
+        public void bindRecipeData(RecipeListItem recipeListitem) {
             vTitle.setText(recipeListitem.getTitle());
 
             Picasso.with(this.vImage.getContext())
@@ -65,24 +64,22 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
         }
 
 
-
     }
 
     @Override
     public RecipeViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v;
         v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_recipelist, viewGroup, false);
-        RecipeViewHolder recipeViewHolder=new RecipeViewHolder(v);
+        RecipeViewHolder recipeViewHolder = new RecipeViewHolder(v);
         return recipeViewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecipeViewHolder viewHolder, int i) {
-        RecipeListItem recipeListItem=recipeList.getRecipes().get(i);
+        RecipeListItem recipeListItem = recipeList.getRecipes().get(i);
         viewHolder.bindRecipeData(recipeListItem);
 
     }
-
 
 
     @Override
@@ -90,13 +87,13 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
         return Integer.parseInt(recipeList.getCount());
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         public void onItemClick(View view, int position);
-       // public void onItemLongClick(View view, int position);
+        // public void onItemLongClick(View view, int position);
 //       public void onOverFlowMenuClick(View view, final int position);
     }
 
-    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener){
+    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
 }

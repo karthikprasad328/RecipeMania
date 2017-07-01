@@ -8,8 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.dd.CircularProgressButton;
 
@@ -20,10 +18,7 @@ public class PopularRecipeFragment extends Fragment {
     private FetchRecipeWithIngredients fetchRecipeWithIngredientsList;
     private FetchRecipeList fetchRecipeList;
     private RecyclerView recyclerView;
-    private LinearLayoutManager mLayoutManager;
-    private CircularProgressButton nextButton;
-    private CircularProgressButton prevButton;
-    private int count=1;
+    private int count = 1;
 
     public PopularRecipeFragment() {
     }
@@ -35,19 +30,19 @@ public class PopularRecipeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.recyclerview_popular, container, false);
 
 
-        recyclerView=(RecyclerView)rootView.findViewById(R.id.cardList);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.cardList);
 
 
-         mLayoutManager=new LinearLayoutManager(getActivity());
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("Popular Recipes");
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("Popular Recipes");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLayoutManager);
 
-        fetchRecipeList=new FetchRecipeList(recyclerView,getActivity(),"0");
+        fetchRecipeList = new FetchRecipeList(recyclerView, getActivity(), "0");
         fetchRecipeList.execute();
 
-        prevButton=(CircularProgressButton)rootView.findViewById(R.id.prevButton);
-        nextButton=(CircularProgressButton)rootView.findViewById(R.id.nextButton);
+        CircularProgressButton prevButton = (CircularProgressButton) rootView.findViewById(R.id.prevButton);
+        CircularProgressButton nextButton = (CircularProgressButton) rootView.findViewById(R.id.nextButton);
 
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,10 +69,6 @@ public class PopularRecipeFragment extends Fragment {
 
         return rootView;
     }
-
-
-
-
 
 
 }

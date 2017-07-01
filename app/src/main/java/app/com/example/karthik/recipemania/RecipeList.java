@@ -10,13 +10,24 @@ public class RecipeList {
     private String count;
     private List<RecipeListItem> recipes;
 
-    public void setCount(String count){this.count=count;}
+    public void setCount(String count) {
+        this.count = count;
+    }
 
-    public void setRecipes(List<RecipeListItem> recipes){this.recipes=recipes;}
+    public void setRecipes(List<RecipeListItem> recipes) {
+        this.recipes = recipes;
+    }
 
-    public String getCount(){return count;}
+    public String getCount() {
+        return count;
+    }
 
-    public void clear(){recipes.clear(); count="0";}
+    public void clear() {
+        recipes.clear();
+        count = "0";
+    }
 
-    public List<RecipeListItem> getRecipes(){return  recipes;}
+    public List<RecipeListItem> getRecipes() {
+        return recipes;
+    }
 }

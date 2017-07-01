@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +26,15 @@ import retrofit.RestAdapter;
 
 
 public class Fragment_Favourites extends Fragment {
-    public static String RECIPE_ID="";
-    static RecipeList recipeList=new RecipeList();
+    public static String RECIPE_ID = "";
+    static RecipeList recipeList = new RecipeList();
     RecyclerView recyclerView;
     Boolean isConnected;
 
     public Fragment_Favourites() {
     }
 
-    public static Fragment_Favourites newInstance(String id){
+    public static Fragment_Favourites newInstance(String id) {
         Fragment_Favourites fragment = new Fragment_Favourites();
         Bundle args = new Bundle();
         args.putString(RECIPE_ID, id);
@@ -48,38 +47,34 @@ public class Fragment_Favourites extends Fragment {
                              Bundle savedInstanceState) {
         // View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         View rootView = inflater.inflate(R.layout.recyclerview_recipelist, container, false);
-        recyclerView=(RecyclerView)rootView.findViewById(R.id.cardList);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.cardList);
 
 
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("My Favourite Recipes");
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("My Favourite Recipes");
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLayoutManager);
-        RecipeDatabase rdb=RecipeDatabase.getInstance(getActivity().getApplicationContext());
-        List<RecipeDbItem1> recipeFavourites=rdb.getAllFavourites();
+        RecipeDatabase rdb = RecipeDatabase.getInstance(getActivity().getApplicationContext());
+        List<RecipeDbItem1> recipeFavourites = rdb.getAllFavourites();
         try {
-            FetchFavourites fetchFavourites = new FetchFavourites(recipeFavourites,recyclerView);
+            FetchFavourites fetchFavourites = new FetchFavourites(recipeFavourites, recyclerView);
             fetchFavourites.execute();
 
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return rootView;
     }
 
-    public class FetchFavourites extends AsyncTask<Void,Void,List<RecipeElement>>
-    {
+    public class FetchFavourites extends AsyncTask<Void, Void, List<RecipeElement>> {
         private List<RecipeDbItem1> recipeDbItem1;
-        private List<RecipeElement> recipeElemList=new ArrayList<RecipeElement>();
+        private List<RecipeElement> recipeElemList = new ArrayList<RecipeElement>();
         RecyclerView recyclerView;
 
-        FetchFavourites(List<RecipeDbItem1> recipeDbItem1, RecyclerView recyclerView1)
-        {
-            this.recipeDbItem1=recipeDbItem1;
-            recyclerView=recyclerView1;
+        FetchFavourites(List<RecipeDbItem1> recipeDbItem1, RecyclerView recyclerView1) {
+            this.recipeDbItem1 = recipeDbItem1;
+            recyclerView = recyclerView1;
         }
 
         @Override
@@ -109,22 +104,19 @@ public class Fragment_Favourites extends Fragment {
                             throw new InterruptedException();
                         }
                     }
+                } else {
+                    recipeElemList = null;
                 }
-                else
-                {
-                    recipeElemList=null;
-                }
-            }
-            catch (Exception e) {
-                System.out.println("\nException thrown Karthik: "+e);
+            } catch (Exception e) {
+                System.out.println("\nException thrown Karthik: " + e);
             }
 
             return recipeElemList;
         }
-        protected void onPostExecute(List<RecipeElement> recipeElemList)
-        {
-            List<RecipeListItem> recipeListItems=new ArrayList<RecipeListItem>();
-            if(recipeElemList!=null) {
+
+        protected void onPostExecute(List<RecipeElement> recipeElemList) {
+            List<RecipeListItem> recipeListItems = new ArrayList<RecipeListItem>();
+            if (recipeElemList != null) {
                 if (!recipeElemList.isEmpty()) {
                     System.out.println("\n\nFetchFavourites AsyncTask fetched");
                     for (int i = 0; i < recipeElemList.size(); i++) {
@@ -151,12 +143,10 @@ public class Fragment_Favourites extends Fragment {
                                     .commit();
                         }
                     });
-                }
-                else {
+                } else {
                     Crouton.makeText(getActivity(), "NO FAVOURITES YET. BROWSE THROUGH OUR POPULAR RECIPES TO ADD SOME.", Style.INFO).show();
                 }
-            }
-            else {
+            } else {
                 Crouton.makeText(getActivity(), "NO NETWORK CONNECTION, TRY AGAIN LATER", Style.ALERT).show();
             }
         }

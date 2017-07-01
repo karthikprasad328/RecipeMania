@@ -6,11 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
@@ -20,19 +16,18 @@ import retrofit.RestAdapter;
  * Created by Karthik on 4/19/2015.
  * fetches recipes using ingredients as the parameter
  */
-public class FetchRecipeWithIngredients extends AsyncTask<Void,Void,Boolean> {
-    String query;
-    RecipeList recipeList;
-    RecyclerView recyclerView;
-    Activity activity;
-    Boolean isConnected;
-    MyRecycleViewAdapter myRecycleViewAdapter;
+public class FetchRecipeWithIngredients extends AsyncTask<Void, Void, Boolean> {
+    private String query;
+    private RecipeList recipeList;
+    private RecyclerView recyclerView;
+    private Activity activity;
+    private Boolean isConnected;
+    private MyRecycleViewAdapter myRecycleViewAdapter;
 
-    FetchRecipeWithIngredients(String query,RecyclerView mRecyclerView,Activity mActivity)
-    {
-        this.query=query;
-        recyclerView=mRecyclerView;
-        activity=mActivity;
+    FetchRecipeWithIngredients(String query, RecyclerView mRecyclerView, Activity mActivity) {
+        this.query = query;
+        recyclerView = mRecyclerView;
+        activity = mActivity;
     }
 
     @Override
@@ -63,20 +58,19 @@ public class FetchRecipeWithIngredients extends AsyncTask<Void,Void,Boolean> {
 //               System.out.println("\n Title: "+recipeListItem.getTitle()+"\n");
 //           }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
-            System.out.println("\nException thrown: "+e);
+            System.out.println("\nException thrown: " + e);
             return false;
         }
         return isConnected;
     }
+
     //onPostExecute sets the adapter and populates the view
     @Override
-    protected void onPostExecute(Boolean success){
-        if(success)
-        {
-            myRecycleViewAdapter=new MyRecycleViewAdapter(recipeList);
+    protected void onPostExecute(Boolean success) {
+        if (success) {
+            myRecycleViewAdapter = new MyRecycleViewAdapter(recipeList);
             recyclerView.setAdapter(myRecycleViewAdapter);
 
             myRecycleViewAdapter.SetOnItemClickListener(new MyRecycleViewAdapter.OnItemClickListener() {
@@ -84,9 +78,9 @@ public class FetchRecipeWithIngredients extends AsyncTask<Void,Void,Boolean> {
 
                 @Override
                 public void onItemClick(View view, int position) {
-                    String id=recipeList.getRecipes().get(position).getRecipe_id();
+                    String id = recipeList.getRecipes().get(position).getRecipe_id();
                     activity.getFragmentManager().beginTransaction()
-                            .replace(R.id.container,Fragment_DetailView.newInstance(id))
+                            .replace(R.id.container, Fragment_DetailView.newInstance(id))
                             .addToBackStack(null)
                             .commit();
                 }
@@ -125,8 +119,7 @@ public class FetchRecipeWithIngredients extends AsyncTask<Void,Void,Boolean> {
 //                    popup.show();
 //                }
             });
-        }
-        else {
+        } else {
             Crouton.makeText(activity, "NO NETWORK CONNECTION, TRY AGAIN LATER", Style.ALERT).show();
         }
     }

@@ -14,25 +14,23 @@ import java.util.Map;
 /**
  * Created by Karthik on 4/21/2015.
  */
-public class MyGroceryListAdapter extends RecyclerView.Adapter<MyGroceryListAdapter.ViewHolder> {
+class MyGroceryListAdapter extends RecyclerView.Adapter<MyGroceryListAdapter.ViewHolder> {
 
-    private List<Map<String,?>> groceryList;
+    private List<Map<String, ?>> groceryList;
 
-    OnItemClickListener mItemClickListener;
+    MyGroceryListAdapter(List<Map<String, ?>> mDataset) {
+        groceryList = mDataset;
+    }
 
-    public MyGroceryListAdapter(List<Map<String,?>> mDataset){groceryList=mDataset;}
 
+    class ViewHolder extends RecyclerView.ViewHolder {
+        TextView vTitle;
+        CheckBox vCheckBox;
 
-    class ViewHolder extends RecyclerView.ViewHolder
-    {
-        public TextView vTitle;
-        public CheckBox vCheckBox;
-
-        public ViewHolder(final View itemView)
-        {
+        ViewHolder(final View itemView) {
             super(itemView);
             vTitle = (TextView) itemView.findViewById(R.id.groceryText);
-            vCheckBox=(CheckBox)itemView.findViewById(R.id.checkbox);
+            vCheckBox = (CheckBox) itemView.findViewById(R.id.checkbox);
 
             vCheckBox.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -44,11 +42,10 @@ public class MyGroceryListAdapter extends RecyclerView.Adapter<MyGroceryListAdap
             });
         }
 
-        public void bindGroceryData(Map<String,?> item)
-        {
-            vTitle.setText((String)item.get("title"));
-            if(item.get("selection")!=null)
-                vCheckBox.setChecked((Boolean)item.get("selection"));
+        void bindGroceryData(Map<String, ?> item) {
+            vTitle.setText((String) item.get("title"));
+            if (item.get("selection") != null)
+                vCheckBox.setChecked((Boolean) item.get("selection"));
         }
 
     }
@@ -58,13 +55,13 @@ public class MyGroceryListAdapter extends RecyclerView.Adapter<MyGroceryListAdap
     public MyGroceryListAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v;
         v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_grocerylist, viewGroup, false);
-        ViewHolder vh=new ViewHolder(v);
+        ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(MyGroceryListAdapter.ViewHolder viewHolder, int i) {
-        Map<String,?> entry=groceryList.get(i);
+        Map<String, ?> entry = groceryList.get(i);
         viewHolder.bindGroceryData(entry);
     }
 
@@ -73,12 +70,11 @@ public class MyGroceryListAdapter extends RecyclerView.Adapter<MyGroceryListAdap
         return groceryList.size();
     }
 
-    public interface OnItemClickListener{
+    interface OnItemClickListener {
 
     }
 
-    public void setOnClickListener(final OnItemClickListener mItemClickListener)
-    {
-        this.mItemClickListener=mItemClickListener;
+    public void setOnClickListener(final OnItemClickListener mItemClickListener) {
+        OnItemClickListener mItemClickListener1 = mItemClickListener;
     }
 }

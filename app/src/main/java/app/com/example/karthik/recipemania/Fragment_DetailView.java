@@ -12,16 +12,11 @@ import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -40,7 +35,7 @@ import retrofit.RestAdapter;
  */
 public class Fragment_DetailView extends Fragment {
     View v;
-    public static String RECIPE_ID="";
+    public static String RECIPE_ID = "";
     public ImageView image;
     public TextView title;
     public TextView source_url;
@@ -55,13 +50,12 @@ public class Fragment_DetailView extends Fragment {
     public ImageView background;
     public LinearLayout foregroundLayout;
 
-    public Fragment_DetailView(){
+    public Fragment_DetailView() {
 
     }
 
 
-
-    public static Fragment_DetailView newInstance(String id){
+    public static Fragment_DetailView newInstance(String id) {
         Fragment_DetailView fragment = new Fragment_DetailView();
         Bundle args = new Bundle();
         args.putString(RECIPE_ID, id);
@@ -77,18 +71,18 @@ public class Fragment_DetailView extends Fragment {
         v = inflater.inflate(R.layout.detailview_recipe, container, false);
         image = (ImageView) v.findViewById(R.id.recipeimage);
         title = (TextView) v.findViewById(R.id.recipetitle);
-        source_url=(TextView) v.findViewById(R.id.recipesourceurl);
-        ingredients=(TextView) v.findViewById(R.id.ingredients);
-        sourceUrlButton=(CircularProgressButton)v.findViewById(R.id.sourceUrlButton);
+        source_url = (TextView) v.findViewById(R.id.recipesourceurl);
+        ingredients = (TextView) v.findViewById(R.id.ingredients);
+        sourceUrlButton = (CircularProgressButton) v.findViewById(R.id.sourceUrlButton);
         //favouritesButton=(Button)v.findViewById(R.id.favouritesButton);
-        favouritesButton=(CircularProgressButton)v.findViewById(R.id.favouritesButton);
-        groceriesButton=(CircularProgressButton) v.findViewById(R.id.groceriesButton);
-        progressBar=(ProgressBar)v.findViewById(R.id.progressBar);
-        plannerButton=(CircularProgressButton) v.findViewById(R.id.plannerButton);
-        textIngredients=(TextView)v.findViewById(R.id.textIngredients);
-        textSource=(TextView)v.findViewById(R.id.textSource);
-        background=(ImageView)v.findViewById(R.id.background);
-        foregroundLayout=(LinearLayout)v.findViewById(R.id.foregroundLayout);
+        favouritesButton = (CircularProgressButton) v.findViewById(R.id.favouritesButton);
+        groceriesButton = (CircularProgressButton) v.findViewById(R.id.groceriesButton);
+        progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
+        plannerButton = (CircularProgressButton) v.findViewById(R.id.plannerButton);
+        textIngredients = (TextView) v.findViewById(R.id.textIngredients);
+        textSource = (TextView) v.findViewById(R.id.textSource);
+        background = (ImageView) v.findViewById(R.id.background);
+        foregroundLayout = (LinearLayout) v.findViewById(R.id.foregroundLayout);
 
         Bundle bundle = this.getArguments();
         String user = bundle.getString(RECIPE_ID);
@@ -96,30 +90,29 @@ public class Fragment_DetailView extends Fragment {
         System.out.println(user);
 
         //query database to change button text
-        RecipeDatabase rdb=RecipeDatabase.getInstance(getActivity().getApplicationContext());
-        RecipeDbItem1 recipeDbItem1=rdb.getFavourite(user);
-        if(recipeDbItem1.getID() != "")
+        RecipeDatabase rdb = RecipeDatabase.getInstance(getActivity().getApplicationContext());
+        RecipeDbItem1 recipeDbItem1 = rdb.getFavourite(user);
+        if (recipeDbItem1.getID() != "")
             favouritesButton.setProgress(100);
-            //favouritesButton.setText("REMOVE FROM FAVOURITES");
+        //favouritesButton.setText("REMOVE FROM FAVOURITES");
         //querying web api
-        FetchDetailRecipe fetchDetailRecipe=new FetchDetailRecipe(user);
+        FetchDetailRecipe fetchDetailRecipe = new FetchDetailRecipe(user);
         fetchDetailRecipe.execute();
         return v;
     }
 
-    public class FetchDetailRecipe extends AsyncTask<Void,Void,Boolean> {
+    public class FetchDetailRecipe extends AsyncTask<Void, Void, Boolean> {
         String id;
         RecipeElement recipeElement;
         Boolean isConnected;
-        FetchDetailRecipe(String id)
-        {
-            this.id=id;
+
+        FetchDetailRecipe(String id) {
+            this.id = id;
         }
 
 
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);
 
         }
@@ -154,19 +147,18 @@ public class Fragment_DetailView extends Fragment {
 //               System.out.println(recipeElement.getRecipe().getIngredients().get(i));
 //            }
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
 
-                System.out.println("\nException thrown: "+e);
+                System.out.println("\nException thrown: " + e);
                 return false;
             }
 
 
             return isConnected;
         }
-        protected void onPostExecute(Boolean success){
-            if(success)
-            {
+
+        protected void onPostExecute(Boolean success) {
+            if (success) {
                 background.setVisibility(View.VISIBLE);
                 foregroundLayout.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
@@ -190,26 +182,16 @@ public class Fragment_DetailView extends Fragment {
 
                 source_url.setText((String) recipeElement.getRecipe().getSource_url());
 
-
-                ingredients.setText("-" + (String) recipeElement.getRecipe().getIngredients().get(0));
-                for(int i=1;i<recipeElement.getRecipe().getIngredients().size();i++)
-                {
-                    ingredients.append("\n-"+recipeElement.getRecipe().getIngredients().get(i));
+                String ingredient = "-" + (String) recipeElement.getRecipe().getIngredients().get(0);
+                ingredients.setText(ingredient);
+                for (int i = 1; i < recipeElement.getRecipe().getIngredients().size(); i++) {
+                    ingredients.append("\n-" + recipeElement.getRecipe().getIngredients().get(i));
                 }
 
                 favouritesButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        RecipeDatabase rdb=RecipeDatabase.getInstance(getActivity().getApplicationContext());
-                        //Button b = (Button)v;
-
-//                        RotateAnimation rotate = new RotateAnimation(0, 360,
-//                                0, 0, Animation.RELATIVE_TO_SELF,
-//                                0.5f);
-//
-//                        rotate.setDuration(1000);
-//                        //rotate.setRepeatCount(1);
-//                        favouritesButton.setAnimation(rotate);
+                        RecipeDatabase rdb = RecipeDatabase.getInstance(getActivity().getApplicationContext());
 
                         YoYo.with(Techniques.RotateInDownRight)
                                 .duration(700)
@@ -219,17 +201,17 @@ public class Fragment_DetailView extends Fragment {
                         recipeDbItem1.setID(recipeElement.getRecipe().getRecipe_id());
                         recipeDbItem1.setTitle(recipeElement.getRecipe().getTitle());
                         //if(buttonText.compareTo("ADD TO FAVOURITES")==0) {
-                          if(favouritesButton.getProgress()==0){
+                        if (favouritesButton.getProgress() == 0) {
                             rdb.addFavourite(recipeDbItem1);
                             //favouritesButton.setText("REMOVE FROM FAVOURITES");
                             //b.setChecked(true);
-                              favouritesButton.setProgress(100);
+                            favouritesButton.setProgress(100);
                             Toast.makeText(getActivity().getApplicationContext(), "Added to Favourites", Toast.LENGTH_SHORT).show();
                         }
-                       // else if(buttonText.compareTo("REMOVE FROM FAVOURITES")==0){
-                        else{
+                        // else if(buttonText.compareTo("REMOVE FROM FAVOURITES")==0){
+                        else {
                             rdb.deleteFavourite(recipeDbItem1);
-                              favouritesButton.setProgress(0);
+                            favouritesButton.setProgress(0);
                             //System.out.println("\n Button on click . deleting from database");
                             //favouritesButton.setText("ADD TO FAVOURITES");
                             Toast.makeText(getActivity().getApplicationContext(), "Removed from Favourites", Toast.LENGTH_SHORT).show();
@@ -240,9 +222,9 @@ public class Fragment_DetailView extends Fragment {
                 groceriesButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        RecipeDatabase rdb=RecipeDatabase.getInstance(getActivity().getApplicationContext());
-                        List<String> groceriesList=new ArrayList<String>();
-                        groceriesList=recipeElement.getRecipe().getIngredients();
+                        RecipeDatabase rdb = RecipeDatabase.getInstance(getActivity().getApplicationContext());
+                        List<String> groceriesList = new ArrayList<String>();
+                        groceriesList = recipeElement.getRecipe().getIngredients();
                         //Toast.makeText(getActivity().getApplicationContext(), "Added to Grocery List"+groceriesList.get(0), Toast.LENGTH_SHORT).show();
                         rdb.addGroceries(groceriesList);
                         groceriesButton.setProgress(100);
@@ -276,8 +258,7 @@ public class Fragment_DetailView extends Fragment {
                     }
                 });
 
-            }
-            else {
+            } else {
                 Crouton.makeText(getActivity(), "NO NETWORK CONNECTION, TRY AGAIN LATER", Style.ALERT).show();
             }
         }

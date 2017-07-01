@@ -8,27 +8,29 @@ import java.util.Map;
 /**
  * Created by Karthik on 4/21/2015.
  */
-public class GroceryItemsList {
+class GroceryItemsList {
 
-    List<Map<String,?>> groceryList=new ArrayList<Map<String,?>>();
+    List<Map<String, ?>> groceryList = new ArrayList<Map<String, ?>>();
 
-    public List<Map<String,?>> getGroceryList(){return groceryList;}
+    List<Map<String, ?>> getGroceryList() {
+        return groceryList;
+    }
 
-    public int getSize(){return groceryList.size();}
+    public int getSize() {
+        return groceryList.size();
+    }
 
-    public GroceryItemsList(List<String> list1)
-    {
-        for(int i=0;i<list1.size();i++)
-        {
-            HashMap item=new HashMap();
-            item.put("title",list1.get(i));
-            item.put("selection",false);
+    GroceryItemsList(List<String> list1) {
+        for (int i = 0; i < list1.size(); i++) {
+            HashMap item = new HashMap();
+            item.put("title", list1.get(i));
+            item.put("selection", false);
             groceryList.add(item);
         }
     }
 
-    public HashMap getItem(int i){
-        if (i >=0 && i < groceryList.size()){
+    HashMap getItem(int i) {
+        if (i >= 0 && i < groceryList.size()) {
             return (HashMap) groceryList.get(i);
         } else return null;
     }
