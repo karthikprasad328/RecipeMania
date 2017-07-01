@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "626948786192",
+    "firebase_url": "https://lofty-complex-92402.firebaseio.com",
+    "project_id": "lofty-complex-92402",
+    "storage_bucket": "lofty-complex-92402.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626948786192:android:e542074b919ac896",
+        "android_client_info": {
+          "package_name": "app.com.example.karthik.recipemania"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "626948786192-697trc3a45d579vfonattq2gjqfg72ss.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.com.example.karthik.recipemania",
+            "certificate_hash": "b2299526ed9876a9e9a3f769e64e727dc5f7f8c3"
+          }
+        },
+        {
+          "client_id": "626948786192-0mi034k80qpirnqj4c38dde23sc3i8tr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqj47BfQuQE16QlQkpEpiEWC5lnfsP5I4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "626948786192-0mi034k80qpirnqj4c38dde23sc3i8tr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -24,22 +26,25 @@ public class MainActivity extends ActionBarActivity {
     private RecyclerView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar mToolbar;
-    private  MyDrawerRecyclerViewAdapter mDrawerRecyclerViewAdapter;
+    private MyDrawerRecyclerViewAdapter mDrawerRecyclerViewAdapter;
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-       // mToolbar.setTitleTextColor(Integer.parseInt("#ffffff"));
+        // mToolbar.setTitleTextColor(Integer.parseInt("#ffffff"));
         setSupportActionBar(mToolbar);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        RecipeDatabase rdb=new RecipeDatabase(getApplicationContext());
+        RecipeDatabase rdb = new RecipeDatabase(getApplicationContext());
 
         mDrawer = (RelativeLayout) findViewById(R.id.drawer);
         mDrawerList = (RecyclerView) findViewById(R.id.drawer_list);
         mDrawerList.setLayoutManager(new LinearLayoutManager(this));
-        mDrawerRecyclerViewAdapter = new MyDrawerRecyclerViewAdapter(this,  (new Drawer_Data()).getDrawerList());
+        mDrawerRecyclerViewAdapter = new MyDrawerRecyclerViewAdapter(this, (new Drawer_Data()).getDrawerList());
         mDrawerRecyclerViewAdapter.SetOnItemClickListener(new MyDrawerRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
@@ -77,26 +82,33 @@ public class MainActivity extends ActionBarActivity {
     private void selectItem(int position) {
         // update the main content by replacing fragments
         switch (position) {
-            case 0: clearBackStack();
+            case 0:
+                clearBackStack();
                 getFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
                 break;
 
-            case 1: getFragmentManager().beginTransaction().replace(R.id.container, new PopularRecipeFragment()).addToBackStack(null).commit();
+            case 1:
+                getFragmentManager().beginTransaction().replace(R.id.container, new PopularRecipeFragment()).addToBackStack(null).commit();
                 break;
 
-            case 2: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_FridgeSearch()).addToBackStack(null).commit();
+            case 2:
+                getFragmentManager().beginTransaction().replace(R.id.container, new Fragment_FridgeSearch()).addToBackStack(null).commit();
                 break;
 
-            case 3: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_Favourites()).addToBackStack(null).commit();
+            case 3:
+                getFragmentManager().beginTransaction().replace(R.id.container, new Fragment_Favourites()).addToBackStack(null).commit();
                 break;
 
-            case 4: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_Groceries()).addToBackStack(null).commit();
+            case 4:
+                getFragmentManager().beginTransaction().replace(R.id.container, new Fragment_Groceries()).addToBackStack(null).commit();
                 break;
 
-            case 5: getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_About()).addToBackStack(null).commit();
+            case 5:
+                getFragmentManager().beginTransaction().replace(R.id.container, new Fragment_About()).addToBackStack(null).commit();
                 break;
 
-            default:getFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
+            default:
+                getFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
                 break;
         }
         mDrawerLayout.closeDrawer(mDrawer);
@@ -119,26 +131,24 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            getFragmentManager().beginTransaction().replace(R.id.container,new Fragment_About()).addToBackStack(null).commit();
+            getFragmentManager().beginTransaction().replace(R.id.container, new Fragment_About()).addToBackStack(null).commit();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void clearBackStack()
-    {
-        while(getFragmentManager().getBackStackEntryCount()!=0)
+    private void clearBackStack() {
+        while (getFragmentManager().getBackStackEntryCount() != 0)
             getFragmentManager().popBackStackImmediate();
     }
 
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         // Catch back action and pops from backstack
         // (if you called previously to addToBackStack() in your transaction)
-        int stackCount=getFragmentManager().getBackStackEntryCount();
-        if (stackCount > 0 &&(getFragmentManager().getBackStackEntryAt(0) != getFragmentManager().getBackStackEntryAt(stackCount-1))) {
+        int stackCount = getFragmentManager().getBackStackEntryCount();
+        if (stackCount > 0 && (getFragmentManager().getBackStackEntryAt(0) != getFragmentManager().getBackStackEntryAt(stackCount - 1))) {
             getFragmentManager().popBackStack();
         }
         // Default action on back pressed
