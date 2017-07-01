@@ -17,60 +17,57 @@ import retrofit.RestAdapter;
  * used to find popular recipes
  */
 
-public class FetchRecipeList extends AsyncTask<Void,Void,Boolean> {
+class FetchRecipeList extends AsyncTask<Void, Void, Boolean> {
 
     String query;
-    RecipeList recipeList;
-    RecyclerView recyclerView;
-    Activity activity;
-    MyRecycleViewAdapter myRecycleViewAdapter;
-    String count;
-    Boolean isConnected;
+    private RecipeList recipeList;
+    private RecyclerView recyclerView;
+    private Activity activity;
+    private MyRecycleViewAdapter myRecycleViewAdapter;
+    private String count;
+    private Boolean isConnected;
 
-    FetchRecipeList(RecyclerView mRecyclerView,Activity mActivity, String count)
-    {
-        recyclerView=mRecyclerView;
-        activity=mActivity;
-        this.count=count;
+    FetchRecipeList(RecyclerView mRecyclerView, Activity mActivity, String count) {
+        recyclerView = mRecyclerView;
+        activity = mActivity;
+        this.count = count;
     }
 
     @Override
     protected Boolean doInBackground(Void... params) {
-       try {
-           ConnectivityManager cm =
-                   (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        try {
+            ConnectivityManager cm =
+                    (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-           NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-           isConnected = activeNetwork != null &&
-                   activeNetwork.isConnectedOrConnecting();
-           if (isConnected) {
-               RestAdapter restAdapter = new RestAdapter.Builder()
-                       .setEndpoint("http://www.food2fork.com")
-                       .setLogLevel(RestAdapter.LogLevel.BASIC)
-                       .build();
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            isConnected = activeNetwork != null &&
+                    activeNetwork.isConnectedOrConnecting();
+            if (isConnected) {
+                RestAdapter restAdapter = new RestAdapter.Builder()
+                        .setEndpoint("http://www.food2fork.com")
+                        .setLogLevel(RestAdapter.LogLevel.BASIC)
+                        .build();
 
 
-               WebService service = restAdapter.create(WebService.class);
+                WebService service = restAdapter.create(WebService.class);
 
-               recipeList = service.getRecipeList(count);
-               if (recipeList.getRecipes().isEmpty()) {
-                   throw new InterruptedException();
-               }
-           }
-       }
-       catch (Exception e) {
-                System.out.println("\nException thrown: "+e);
-                return false;
-       }
-       return isConnected;
+                recipeList = service.getRecipeList(count);
+                if (recipeList.getRecipes().isEmpty()) {
+                    throw new InterruptedException();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("\nException thrown: " + e);
+            return false;
+        }
+        return isConnected;
     }
 
     //onPostExecute sets the adapter and populates the view
     @Override
-    protected void onPostExecute(Boolean success){
-        if(success)
-        {
-            myRecycleViewAdapter=new MyRecycleViewAdapter(recipeList);
+    protected void onPostExecute(Boolean success) {
+        if (success) {
+            myRecycleViewAdapter = new MyRecycleViewAdapter(recipeList);
             recyclerView.setAdapter(myRecycleViewAdapter);
             myRecycleViewAdapter.notifyDataSetChanged();
             //System.out.println("\n printing in postExecute");
@@ -79,17 +76,16 @@ public class FetchRecipeList extends AsyncTask<Void,Void,Boolean> {
                 @Override
                 public void onItemClick(View view, int position) {
                     System.out.println("\n\nItem CLicked\n");
-                    String id=recipeList.getRecipes().get(position).getRecipe_id();
+                    String id = recipeList.getRecipes().get(position).getRecipe_id();
 
                     activity.getFragmentManager().beginTransaction()
-                            .replace(R.id.container,Fragment_DetailView.newInstance(id))
+                            .replace(R.id.container, Fragment_DetailView.newInstance(id))
                             .addToBackStack(null)
                             .commit();
 
                 }
             });
-        }
-        else {
+        } else {
             Crouton.makeText(activity, "NO NETWORK CONNECTION, TRY AGAIN LATER", Style.ALERT).show();
         }
     }

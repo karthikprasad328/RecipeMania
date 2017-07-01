@@ -23,10 +23,6 @@ public class MainActivity extends ActionBarActivity {
 
     private RelativeLayout mDrawer;
     private DrawerLayout mDrawerLayout;
-    private RecyclerView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private Toolbar mToolbar;
-    private MyDrawerRecyclerViewAdapter mDrawerRecyclerViewAdapter;
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -34,7 +30,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         // mToolbar.setTitleTextColor(Integer.parseInt("#ffffff"));
         setSupportActionBar(mToolbar);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -42,9 +38,9 @@ public class MainActivity extends ActionBarActivity {
         RecipeDatabase rdb = new RecipeDatabase(getApplicationContext());
 
         mDrawer = (RelativeLayout) findViewById(R.id.drawer);
-        mDrawerList = (RecyclerView) findViewById(R.id.drawer_list);
+        RecyclerView mDrawerList = (RecyclerView) findViewById(R.id.drawer_list);
         mDrawerList.setLayoutManager(new LinearLayoutManager(this));
-        mDrawerRecyclerViewAdapter = new MyDrawerRecyclerViewAdapter(this, (new Drawer_Data()).getDrawerList());
+        MyDrawerRecyclerViewAdapter mDrawerRecyclerViewAdapter = new MyDrawerRecyclerViewAdapter(this, (new Drawer_Data()).getDrawerList());
         mDrawerRecyclerViewAdapter.SetOnItemClickListener(new MyDrawerRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
@@ -55,7 +51,7 @@ public class MainActivity extends ActionBarActivity {
         mDrawerList.setAdapter(mDrawerRecyclerViewAdapter);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        mDrawerToggle = new ActionBarDrawerToggle(
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
                 mToolbar,  /* nav drawer image to replace 'Up' caret */
@@ -84,26 +80,22 @@ public class MainActivity extends ActionBarActivity {
         switch (position) {
             case 0:
                 clearBackStack();
-                getFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).addToBackStack(null).commit();
-                break;
-
-            case 1:
                 getFragmentManager().beginTransaction().replace(R.id.container, new PopularRecipeFragment()).addToBackStack(null).commit();
                 break;
 
-            case 2:
+            case 1:
                 getFragmentManager().beginTransaction().replace(R.id.container, new Fragment_FridgeSearch()).addToBackStack(null).commit();
                 break;
 
-            case 3:
+            case 2:
                 getFragmentManager().beginTransaction().replace(R.id.container, new Fragment_Favourites()).addToBackStack(null).commit();
                 break;
 
-            case 4:
+            case 3:
                 getFragmentManager().beginTransaction().replace(R.id.container, new Fragment_Groceries()).addToBackStack(null).commit();
                 break;
 
-            case 5:
+            case 4:
                 getFragmentManager().beginTransaction().replace(R.id.container, new Fragment_About()).addToBackStack(null).commit();
                 break;
 

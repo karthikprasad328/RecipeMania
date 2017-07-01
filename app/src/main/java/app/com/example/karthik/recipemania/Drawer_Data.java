@@ -8,10 +8,10 @@ import java.util.Map;
 /*
  * Created by Karthik on 4/19/2015.
  */
-public class Drawer_Data {
-    List<Map<String, ?>> drawerList;
+class Drawer_Data {
+    private List<Map<String, ?>> drawerList;
 
-    public List<Map<String, ?>> getDrawerList() {
+    List<Map<String, ?>> getDrawerList() {
         return drawerList;
     }
 
@@ -23,13 +23,9 @@ public class Drawer_Data {
         return (HashMap) drawerList.get(i);
     }
 
-    public Drawer_Data() {
+    Drawer_Data() {
         HashMap item;
-        drawerList = new ArrayList<Map<String, ?>>();
-        item = new HashMap();
-        item.put("icon", R.drawable.homeicon);
-        item.put("title", "Home");
-        drawerList.add(item);
+        drawerList = new ArrayList<>();
         item = new HashMap();
         item.put("icon", R.drawable.popularicon);
         item.put("title", "Popular Recipes");
